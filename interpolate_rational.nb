@@ -1,0 +1,9 @@
+Do[x[k] = 3+0.5*k, {k, 0, 6}]
+f[t_]=1/(3+t)
+Do[a[0,j]=f[x[j]], {j, 0, 6}]
+Do[Do[If[x[j] != x[j+k],
+    a[k,j] = (a[k-1, j+1]-a[k-1,j])/(x[j+k] - x[j]),
+    a[k,j] = Simplify[D[f[t], {t, k}]/.{t->x[j]}]/Gamma[k+1]], {j, 0, 6+k}],
+{k, 1, 6}]
+P[t_] := a[0, 0] + Sum[a[k, 0]*Product[t-x[j], {j, 0, k-1}], {k, 1, 6}]
+Plot[{f[t]-P[t]}, {t, 3, 6}]
