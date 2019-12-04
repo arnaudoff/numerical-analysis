@@ -1,0 +1,9 @@
+Do[x[k] = 0, {k, 0, 2}]
+Do[x[k] = 1, {k, 3, 4}]
+f[t_] := E^(6*t)
+Do[a[0,j] = f[x[j]], {j, 0, 4}]
+Do[Do[If[x[j] != x[j+k], a[k, j] = (a[k-1, j+1]-a[k-1,j])/(x[j+k]-x[j]),
+    a[k,j] = Simplify[D[f[t], {t, k}]/.{t->x[j]}],Gamma[k+1]], {j, 0, 4+k}],
+{k, 1, 4}]
+P[t_] := a[0,0] + Sum[a[k,0]*Product[t-x[j], {j, 0, k-1}], {k, 1, 4}]
+Plot[{Abs[f[t] - P[t]]}, {t, 0, 1}]

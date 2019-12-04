@@ -6,4 +6,4 @@ Do[Do[If[x[j] != x[j+k],
     a[k,j] = Simplify[D[f[t], {t, k}]/.{t->x[j]}]/Gamma[k+1]], {j, 0, 6+k}],
 {k, 1, 6}]
 P[t_] := a[0, 0] + Sum[a[k, 0]*Product[t-x[j], {j, 0, k-1}], {k, 1, 6}]
-Plot[{f[t]-P[t]}, {t, 3, 6}]
+Plot[{Abs[f[t]-P[t]]}, {t, 3, 6}]
